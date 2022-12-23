@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\matty\\OneDrive\\Documents\\Code\\Github\\PrisonerSim\\PrisonerSim\\PrisonerSimulator.csproj",
+      "projectUniqueName": "D:\\matty\\Documents\\Code\\PrisonerSim\\PrisonerSimulator.csproj",
       "projectName": "PrisonerSimulator",
-      "projectPath": "C:\\Users\\matty\\OneDrive\\Documents\\Code\\Github\\PrisonerSim\\PrisonerSim\\PrisonerSimulator.csproj",
+      "projectPath": "D:\\matty\\Documents\\Code\\PrisonerSim\\PrisonerSimulator.csproj",
       "packagesPath": "C:\\Users\\matty\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\matty\\OneDrive\\Documents\\Code\\Github\\PrisonerSim\\PrisonerSim\\obj\\",
+      "outputPath": "D:\\matty\\Documents\\Code\\PrisonerSim\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\matty\\AppData\\Roaming\\NuGet\\NuGet.Config",

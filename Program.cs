@@ -58,21 +58,21 @@ for (int simulations = 0; simulations < simulationsToRun; simulations++)
 Console.CursorVisible = true;
 
 Console.SetCursorPosition(0, 3);
-Console.Write("100%                 ");
+Console.Write("100%");
 
 Console.SetCursorPosition(0, 5);
 // RESET CURSOR ----------------------------------------------------------------------------
 
 // All Statistics from Simulation
 Console.WriteLine("Slips Found: {0} | Slips Not Found: {1}", slipsF, slipsNF);
-Console.WriteLine("Successes: {0}", simulationSuccess);
+Console.WriteLine("Successes: {0} out of {1}", simulationSuccess, simulationsToRun);
 Console.WriteLine("Success Rate (Percentage): {0}%", ((1.0 * simulationSuccess) / simulationsToRun * 100));
 
 Console.WriteLine("");
 
-Console.WriteLine("Press enter to exit...");
+Console.WriteLine("Press any key to exit...");
 
-Console.ReadLine();
+Console.ReadKey();
 
 public static partial class Program
 {
