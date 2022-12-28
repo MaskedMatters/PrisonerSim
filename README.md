@@ -8,7 +8,7 @@ The best strategy known right now is the loop strategy. Each prisoner would go i
 
 The Statistics:
 
-Doing the guessing strategy the odds that they all find their slip is the same as two people finding the same grain of sand out of every single sand grain on earth. (Percentage as Decimal: 0.0000000000000000000000000000008)
+Doing the guessing strategy the odds that they all find their slip is the same as two people finding the same grain of sand out of every single sand grain on earth. (0.00000000000000000000000000008%)
 
 With the loop strategy they can get their success percentage all the way up to 31%
 
