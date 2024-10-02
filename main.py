@@ -9,26 +9,6 @@ import datetime as dt
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-# CALCULATE PROCESS TIME CODE WAS TAKEN FROM "Mehdi" ON STACKOVERFLOW
-# https://stackoverflow.com/questions/44926127/calculating-the-amount-of-time-left-until-completion
-
-# It's also broken... for now... (I'm using it wrong probably)
-
-def calcProcessTime(starttime, cur_iter, max_iter):
-
-    telapsed = time.time() - starttime
-    testimated = (telapsed/cur_iter)*(max_iter)
-
-    finishtime = starttime + testimated
-    finishtime = dt.datetime.fromtimestamp(finishtime).strftime("%H:%M:%S")
-
-    lefttime = testimated-telapsed
-
-    return (int(telapsed), int(lefttime), finishtime)
-
-# CALCULATE PROCESS TIME CODE WAS TAKEN FROM "Mehdi" ON STACKOVERFLOW
-# https://stackoverflow.com/questions/44926127/calculating-the-amount-of-time-left-until-completion
-
 # BRING CURSOR UP ONE LINE IN TERMINAL
 def cursor_up(lines):
     print("\033[A" * lines)
@@ -75,11 +55,9 @@ def simulations(count):
         escapes += 1 if output else 0
         executions += 1 if not output else 0
 
-        time_tuple = calcProcessTime(sim_start_time, time.time(), count)
-
         # CALCULATE PERCENTAGE COMPLETED AND PERCENTAGE SUCCEEDED
         print("------------------------------------------")
-        print("Percentage: " + str(round((i/count) * 100)) + "% | Time Left: " + str(time_tuple[1]))
+        print("Percentage: " + str(round((i/count) * 100)) + "% | Elapsed Time: " + str(round(time.time() - sim_start_time)))
         print("Escaped Simulations: " + str(escapes))
         print("Executed Simulations: " + str(executions))
         print("")
