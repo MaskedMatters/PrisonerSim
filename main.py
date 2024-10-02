@@ -1,9 +1,7 @@
 # IMPORT ALL LIBRARIES AND MODULES
 import os
 import time
-import math
 import random
-import datetime as dt
 
 # CREATE CLEAR FUNCTION
 def clear():
