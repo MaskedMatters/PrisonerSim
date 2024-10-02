@@ -1,55 +1,109 @@
+# IMPORT ALL LIBRARIES AND MODULES
 import os
+import time
+import math
 import random
+import datetime as dt
 
+# CREATE CLEAR FUNCTION
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def main():
-    test = randomArray()
-    print(len(test) == len(set(test)))
-    print(test)
+# CALCULATE PROCESS TIME CODE WAS TAKEN FROM "Mehdi" ON STACKOVERFLOW
+# https://stackoverflow.com/questions/44926127/calculating-the-amount-of-time-left-until-completion
 
-def populateArray():
-    # Create a populated array of digits in order
-    boxes = []
+# It's also broken... for now... (I'm using it wrong probably)
 
-    for i in range(100):
-        boxes.append(i)
-    
-    return boxes
+def calcProcessTime(starttime, cur_iter, max_iter):
 
-def randomArray():
-    # Create a populated array of random digits
-    boxes = populateArray()
+    telapsed = time.time() - starttime
+    testimated = (telapsed/cur_iter)*(max_iter)
 
-    # To randomize the array, we'll be taking two random values from the array, swapping them, and doing this a bunch of times.
-    rand_box = 0
-    temp = 0
+    finishtime = starttime + testimated
+    finishtime = dt.datetime.fromtimestamp(finishtime).strftime("%H:%M:%S")
 
-    for i in range(1000):
-        for j in range(100):
-            rand_box = random.randint(0, 99)
-            temp = boxes[j]
-            boxes[j] = boxes[rand_box]
-            boxes[rand_box] = temp 
-    
-    return boxes
+    lefttime = testimated-telapsed
 
+    return (int(telapsed), int(lefttime), finishtime)
+
+# CALCULATE PROCESS TIME CODE WAS TAKEN FROM "Mehdi" ON STACKOVERFLOW
+# https://stackoverflow.com/questions/44926127/calculating-the-amount-of-time-left-until-completion
+
+# BRING CURSOR UP ONE LINE IN TERMINAL
+def cursor_up(lines):
+    print("\033[A" * lines)
+
+# POPULATE A LIST WITH RANDOM, NON-REPEATING, INTEGERS FROM 0-99
+def random_array():
+    array = list(range(100))
+    random.shuffle(array)
+
+    return array
+
+# RUN 1 ITERATION OF A SIMULATION
 def simulation():
-    boxes = randomArray()
+    boxes = random_array()                                      # POPULATE THE ARRAY OF BOXES
+    slips_found = 0                                             # INSTANTIATE THE VARIABLE THAT HOLD HOW MANY SLIPS HAVE BEEN FOUND
 
-    for prisoner in range(100):
-        slip = boxes[prisoner]
+    for prisoner in range(100):                                 # ITERATE THROUGH 100 PRISONERS
+        slip = prisoner                                         # LET THE FIRST SLIP BE THE PRISONER # (LOOK AT THE BOX WITH PRISONERS #)
+        found = False                                           # INSTANTIATE A FOUND FLAG
 
-        for i in range(50):
-            slip = boxes[slip]
+        for _ in range(50):                                     # GIVE THE PRISONER 50 TRIES TO FIND THEIR SLIP
+            if boxes[slip] == prisoner:                         # IF THE PRISONER FOUND THEIR SLIP...
+                found = True                                          # CHANGE THE FOUND FLAG TO TRUE
+                break                                                 # BREAK OUT OF THE LOOP
 
-            if slip == prisoner:
-                break
-        
-        if slip != prisoner:
-            break
+            slip = boxes[slip]                                  # ELSE, LOOK AT THE NEXT BOX
 
+        if not found:                                           # IF THE PRISONER NEVER FOUND THEIR SLIP... (found flag default false)
+            break                                                     # BREAK OUT OF THE LOOP (next prisoner goes)
+
+        slips_found += 1                                        # ADD TO THE SLIPS FOUND VARIABLE
+
+    return True if slips_found == 100 else False                # IF ALL PRISONERS FIND THEIR SLIP, THEY SUCCEED, RETURN TRUE, ELSE FALSE
+
+# FUNCTION TO ORCHESTRATE THE SIMULATIONS TO RUN (with data)
+def simulations(count):
+    escapes = 0                                                 # LET AMOUNT OF ESCAPES BE 0
+    executions = 0                                              # LET AMOUNT OF EXECUTIONS BE 0
+
+    sim_start_time = time.time()                                # LET START TIME FOR SIMULATION BE NOW
+
+    for i in range(count):                                      # LOOP THROUGH EVERY SIMULATION
+        output = simulation()                                   # LET OUTPUT BE TRUE IF THEY SUCCEEDED, ELSE FALSE
+        escapes += 1 if output else 0
+        executions += 1 if not output else 0
+
+        time_tuple = calcProcessTime(sim_start_time, time.time(), count)
+
+        # CALCULATE PERCENTAGE COMPLETED AND PERCENTAGE SUCCEEDED
+        print("------------------------------------------")
+        print("Percentage: " + str(round((i/count) * 100)) + "% | Time Left: " + str(time_tuple[1]))
+        print("Escaped Simulations: " + str(escapes))
+        print("Executed Simulations: " + str(executions))
+        print("")
+        print("Escaped Percentage (Opposed to simulations ran): " + str(round(escapes/(i + 1) * 100)) + "%")
+        print("Escaped Percentage (Opposed to total simulations): " + str(round(escapes/count * 100)) + "%")
+        print("------------------------------------------")
+
+        cursor_up(9)
+
+# CREATE CLI/UI THING FOR THE PERSON TO DO THINGS...
+def main():
+    clear()
+
+    print("--- Prisoner Riddle Simulation ---")
+    try:
+        simulation_count = int(input("How many simulations do you want run? (Each with 100 prisoners): "))
+    except ValueError:
+        print("Value must be a number, please try again!")
+        time.sleep(1)
+        clear()
+        main()
+
+    print("")
+    simulations(simulation_count)
 
 if __name__ == "__main__":
     main()
