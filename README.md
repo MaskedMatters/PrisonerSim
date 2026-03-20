@@ -69,14 +69,13 @@ This project simulates the problem to empirically verify the probability.
 
 ### ✨ Features
 
-* Configurable number of simulations
-* Real-time terminal updates
-* Tracks:
-
-  * Successful runs
-  * Failed runs
-  * Running percentages
-* Lightweight (standard library only)
+* **Configurable Simulations:** Choose how many simulations to run per instance.
+* **Real-time Terminal UI:** Beautiful, color-coded, animated terminal updates.
+* **Detailed Tracking:** Live tracking of successful runs, failed runs, and running percentages.
+* **Lightweight:** Uses only standard library Python modules (no external dependencies).
+* **CSV Exporting:** Save out your simulation results and timestamps directly to a CSV file from the interactive post-simulation menu.
+* **Interactive Menu:** Easily rerun a fresh simulation or cleanly exit without navigating terminal history.
+* **Advanced Batch Mode:** Secretly type `a` instead of a number at the main prompt to unlock automated batch execution, letting you seamlessly run multiple groups of simulations back-to-back with optional automatic CSV saving.
 
 ---
 
@@ -97,12 +96,27 @@ python main.py
 ## 🧪 Example Output
 
 ```
-Percentage: 42% | Elapsed Time: 3
-Escaped Simulations: 130
-Executed Simulations: 180
+--- Prisoner Riddle Simulation ---
+How many simulations do you want run? (Each with 100 prisoners): 1000
 
-Escaped Percentage (Opposed to simulations ran): 41%
-Escaped Percentage (Opposed to total simulations): 42%
+------------------------------------------
+Percentage: 100% | Elapsed Time: 2s
+Escaped Simulations: 315
+Executed Simulations: 685
+
+Escaped Percentage (Opposed to simulations ran): 31%
+Escaped Percentage (Opposed to total simulations): 31%
+------------------------------------------
+
+Simulation Complete! What would you like to do?
+1.) Export to CSV file
+2.) Rerun a simulation
+3.) Exit
+
+> Creating/Updating simulation_runs.csv...
+> Successfully exported logs to CSV!
+
+Enter your choice (1/2/3): 
 ```
 
 ---
@@ -148,7 +162,6 @@ Any cycle longer than 50 causes failure.
 * 📊 Graph success rate over time
 * 🌐 Web-based dashboard (real-time visualization)
 * ⚡ Parallel simulation engine
-* 📁 Export results to CSV/JSON
 * 🔀 Compare with random strategy
 
 ---
