@@ -1,35 +1,174 @@
-### The 100 Prisoners Riddle
+# 🔐 The 100 Prisoners Problem — Python Simulation
 
-Imagine a riddle involving 100 prisoners, each assigned a unique number. They face a daunting challenge: in a room filled with 100 boxes—each labeled with a number—each box contains a slip of paper bearing a number from 1 to 100, with no duplicates. Crucially, the slip inside each box does not correspond to the box's label.
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.x-blue?style=for-the-badge&logo=python">
+  <img src="https://img.shields.io/badge/status-active-success?style=for-the-badge">
+  <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge">
+  <img src="https://img.shields.io/badge/simulations-dynamic-orange?style=for-the-badge">
+</p>
 
-Each prisoner has the opportunity to open up to 50 boxes in a bid to locate their own slip. If even one prisoner fails to find their slip, the entire group faces execution. Conversely, if they all succeed, they are set free. What strategy should they adopt to maximize their chances?
-
----
-
-### The Optimal Strategy: The Loop Method
-
-The most effective strategy identified so far is known as the "loop strategy." Here's how it works:
-
-1. Each prisoner starts by opening the box corresponding to their own number.
-2. If the slip inside is not their number, they take note of the number on that slip and proceed to open the box labeled with that new number.
-3. This process continues, with each prisoner following the chain until they either find their own slip or exhaust their 50 chances.
-
-If the prisoner opens a box and finds their own slip on the first try, they can leave immediately.
+<p align="center">
+  A simulation of one of the most fascinating probability puzzles — demonstrating how a clever strategy turns near-certain failure into a surprising ~31% success rate.
+</p>
 
 ---
 
-### The Statistics
+## 🧠 Overview
 
-Under a purely random guessing strategy, the probability that all prisoners find their slips is astronomically low—comparable to the odds of two people finding the same grain of sand among all the grains on Earth (approximately 0.00000000000000000000000000008%).
+The **100 Prisoners Problem** is a well-known probability puzzle involving strategy, permutations, and surprisingly non-intuitive results.
 
-In stark contrast, by employing the loop strategy, their success rate rises significantly to about 31%.
+* 100 prisoners are each assigned a unique number from **0 to 99**
+* 100 boxes exist, each labeled **0 to 99**
+* Each box contains a slip with a number (randomly shuffled, no duplicates)
+
+### 🎯 Objective
+
+Each prisoner must:
+
+* Open **at most 50 boxes**
+* Attempt to find the slip containing their own number
+* Work **without communication**
+
+### ⚠️ Outcome
+
+* ✅ **All succeed** → Everyone is freed
+* ❌ **One fails** → Everyone is executed
 
 ---
 
-### Additional Information
+## 🔄 Optimal Strategy: Cycle Following
 
-To explore the accompanying code for this riddle, ensure you have Visual Studio installed (not to be confused with VS Code). Open the solution file (ending in ".sln") to access the project structure neatly organized in Visual Studio.
+Rather than guessing randomly, prisoners use a deterministic approach:
 
-**Credit:** This riddle and its intriguing statistics were inspired by the YouTube channel Veritasium. For a deeper dive, check out their video: [Veritasium's Video](https://youtu.be/iSNsgj1OCLA).
+1. Start with the box labeled with your number
+2. Read the number inside
+3. Go to the box labeled with that number
+4. Repeat until:
+
+   * You find your number
+   * Or reach 50 attempts
+
+This follows a **cycle in the permutation**.
 
 ---
+
+## 📊 Probability Insight
+
+| Strategy        | Success Rate |
+| --------------- | ------------ |
+| Random Guessing | ~0%          |
+| Cycle Strategy  | ~31%         |
+
+> The group only fails if a permutation contains a cycle longer than 50.
+
+---
+
+## 🐍 Python Simulation
+
+This project simulates the problem to empirically verify the probability.
+
+### ✨ Features
+
+* Configurable number of simulations
+* Real-time terminal updates
+* Tracks:
+
+  * Successful runs
+  * Failed runs
+  * Running percentages
+* Lightweight (standard library only)
+
+---
+
+## ▶️ Getting Started
+
+### 📦 Requirements
+
+* Python 3.x
+
+### 🚀 Run the Simulation
+
+```bash
+python main.py
+```
+
+---
+
+## 🧪 Example Output
+
+```
+Percentage: 42% | Elapsed Time: 3
+Escaped Simulations: 130
+Executed Simulations: 180
+
+Escaped Percentage (Opposed to simulations ran): 41%
+Escaped Percentage (Opposed to total simulations): 42%
+```
+
+---
+
+## 🧩 Code Structure
+
+| Function         | Description                      |
+| ---------------- | -------------------------------- |
+| `random_array()` | Generates a shuffled permutation |
+| `simulation()`   | Runs a single trial              |
+| `simulations(n)` | Runs multiple trials with stats  |
+| `main()`         | CLI interface                    |
+
+---
+
+## 📈 Expected Results
+
+As the number of simulations increases, results converge to:
+
+```
+~31%
+```
+
+This matches the theoretical probability of the cycle-following strategy.
+
+---
+
+## 📊 Visualization (Concept)
+
+A possible extension is visualizing permutation cycles:
+
+```
+0 → 42 → 17 → 0   (cycle length = 3)
+1 → 88 → 5 → ...  (cycle length = 52 ❌ failure)
+```
+
+Any cycle longer than 50 causes failure.
+
+---
+
+## 🚀 Future Improvements
+
+* 📊 Graph success rate over time
+* 🌐 Web-based dashboard (real-time visualization)
+* ⚡ Parallel simulation engine
+* 📁 Export results to CSV/JSON
+* 🔀 Compare with random strategy
+
+---
+
+## 🎥 Inspiration
+
+This problem was popularized by:
+
+**Veritasium**
+[https://youtu.be/iSNsgj1OCLA](https://youtu.be/iSNsgj1OCLA)
+
+---
+
+## 📜 License
+
+MIT License
+
+---
+
+## ⭐ Contributing
+
+Contributions, ideas, and optimizations are welcome.
+Feel free to fork the project and submit a pull request.
